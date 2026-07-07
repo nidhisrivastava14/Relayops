@@ -1,5 +1,5 @@
 import { triageIncident, IncidentCategory } from '../ai/triage';
-import { supabase } from '../supabaseClient';
+import { supabaseAdmin } from '../supabase/admin';
 
 export interface CommandResult {
   replyText: string;
@@ -56,8 +56,9 @@ export async function handleStatusCommand(
   serverId: string | null,
   guildId: string | null
 ): Promise<CommandResult> {
-  // Query open reports in this guild/server
-  let query = supabase
+  // Query open reports in this guild/server using service client (bypasses RLS)
+  const db = supabaseAdmin;
+  let query = db
     .from('command_logs')
     .select('id', { count: 'exact', head: true })
     .eq('command_name', 'report')

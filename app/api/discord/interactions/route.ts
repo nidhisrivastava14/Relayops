@@ -1,7 +1,7 @@
 import { verifyDiscordRequest } from '@/lib/discord/verify';
 import { pongResponse, channelMessageResponse, errorResponse, deferredResponse, updateMessageResponse } from '@/lib/discord/response';
 import { handleReportCommand, handleStatusCommand } from '@/lib/commands/handlers';
-import { supabase } from '@/lib/supabaseClient';
+import { supabaseAdmin } from '@/lib/supabase/admin';
 import { waitUntil } from '@vercel/functions';
 import { sendSlackMirrorNotification } from '@/lib/notifications/slack';
 
@@ -51,6 +51,9 @@ export async function POST(request: Request) {
     console.error('DISCORD_PUBLIC_KEY is not set in environment variables');
     return new Response('Server configuration error', { status: 500 });
   }
+
+  // Initialize service client locally to bypass RLS in unauthenticated webhook environment
+  const supabase = supabaseAdmin;
 
   // 1. Verify signature using raw body and headers
   const { isValid, rawBody } = await verifyDiscordRequest(request, publicKey);

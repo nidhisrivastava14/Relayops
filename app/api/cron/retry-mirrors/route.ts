@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getSupabaseService } from '@/lib/supabaseClient';
+import { supabaseAdmin } from '@/lib/supabase/admin';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,7 +12,7 @@ export async function GET(request: Request) {
     return new NextResponse('Unauthorized', { status: 401 });
   }
 
-  const supabase = getSupabaseService();
+  const supabase = supabaseAdmin;
 
   try {
     // 2. Fetch up to 20 failed logs that haven't hit max retries (retry_count < 5)
