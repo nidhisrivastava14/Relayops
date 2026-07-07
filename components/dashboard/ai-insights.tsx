@@ -26,7 +26,7 @@ export function AiInsights({ priorityDistribution, openIncidents, highCount }: A
             <span className="flex size-7 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <Sparkles className="size-4" />
             </span>
-            <h2 className="text-sm font-semibold tracking-tight text-foreground">
+            <h2 className="text-sm font-semibold tracking-tight text-[color:var(--text-primary)]">
               AI Insights
             </h2>
           </div>
@@ -35,8 +35,8 @@ export function AiInsights({ priorityDistribution, openIncidents, highCount }: A
 
         <div className="space-y-4 pt-5">
           {hasAlerts ? (
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              Triage analysis has flagged <span className="font-semibold text-foreground">{openIncidents} active incident(s)</span>. 
+            <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]">
+              Triage analysis has flagged <span className="font-semibold text-[color:var(--text-primary)]">{openIncidents} active incident(s)</span>. 
               {highCount > 0 ? (
                 <span> Out of these, <span className="font-semibold text-rose-400">{highCount} are high priority</span> and require immediate attention.</span>
               ) : (
@@ -44,7 +44,7 @@ export function AiInsights({ priorityDistribution, openIncidents, highCount }: A
               )}
             </p>
           ) : (
-            <p className="text-sm leading-relaxed text-muted-foreground">
+            <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]">
               No active incidents are currently reported on your connected servers. All automation checks are operating within normal operational limits.
             </p>
           )}
@@ -55,7 +55,7 @@ export function AiInsights({ priorityDistribution, openIncidents, highCount }: A
                 <AlertTriangle className="size-3.5" />
                 Recommended Action
               </div>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className="mt-2 text-sm text-[color:var(--text-muted)]">
                 Inspect open reports and use the &quot;Resolve&quot; button inside the Discord notification message to mark them resolved.
               </p>
             </div>

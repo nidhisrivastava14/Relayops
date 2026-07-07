@@ -28,7 +28,6 @@ export default function ActivityLogPage() {
   const [logs, setLogs] = useState<CommandLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [guildIds, setGuildIds] = useState<string[]>([]);
-  const [isDark, setIsDark] = useState(true);
 
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState('');
@@ -141,11 +140,7 @@ export default function ActivityLogPage() {
     }
   }, [page, guildIds, loadLogs]);
 
-  const toggleTheme = () => {
-    const nextDark = !isDark;
-    setIsDark(nextDark);
-    document.body.setAttribute('data-theme', nextDark ? 'dark' : 'light');
-  };
+
 
   const getStatusBadge = (status: CommandLog['status']) => {
     const color = status === 'completed' ? 'var(--success)' : status === 'failed' ? 'var(--failure)' : 'var(--text-tertiary)';
@@ -184,18 +179,7 @@ export default function ActivityLogPage() {
           <div className="page-title">Command activity logs</div>
           <div className="page-subtitle">Inspect, search, and audit Discord interactions and Slack mirrors.</div>
         </div>
-        <div className="theme-toggle" onClick={toggleTheme} title="Toggle theme">
-          {isDark ? (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="12" cy="12" r="4"/>
-              <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
-            </svg>
-          ) : (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
-            </svg>
-          )}
-        </div>
+
       </div>
 
       <div className="filter-card">

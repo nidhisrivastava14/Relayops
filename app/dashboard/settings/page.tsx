@@ -188,21 +188,21 @@ function SettingsContent() {
   }
 
   return (
-    <div className="p-8 max-w-4xl mx-auto space-y-8">
+    <div className="main max-w-4xl mx-auto space-y-8">
       {/* Page Header */}
-      <div className="border-b border-slate-800/80 pb-6">
-        <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-slate-100 to-slate-400 bg-clip-text text-transparent">
-          Server Settings
-        </h1>
-        <p className="text-slate-400 text-sm mt-1">
-          Connect your Discord Server and configure text channels for automated incident mirrors.
-        </p>
+      <div className="page-header border-b border-[color:var(--divider)] pb-6">
+        <div>
+          <div className="page-title">Server Settings</div>
+          <div className="page-subtitle">
+            Connect your Discord Server and configure text channels for automated incident mirrors.
+          </div>
+        </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-8 shadow-xl backdrop-blur-xl">
+      <div className="panel-card p-8">
         <form onSubmit={handleSave} className="space-y-6" autoComplete="off">
           {success && (
-            <div className="p-4 rounded-xl bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-sm flex items-center gap-2">
+            <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-[color:var(--success)] text-sm flex items-center gap-2">
               <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -211,7 +211,7 @@ function SettingsContent() {
           )}
 
           {errorMsg && (
-            <div className="p-4 rounded-xl bg-rose-950/50 border border-rose-800/50 text-rose-400 text-sm flex items-center gap-2">
+            <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-[color:var(--danger)] text-sm flex items-center gap-2">
               <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -220,18 +220,18 @@ function SettingsContent() {
           )}
 
           {/* Connection Status Section */}
-          <div className="p-5 rounded-xl border border-slate-800 bg-slate-950/50 space-y-4">
+          <div className="p-5 rounded-xl border border-[color:var(--card-border)] bg-[color:var(--field-bg)] space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-[10px] uppercase font-semibold text-slate-500 block">Integration Status</span>
+                <span className="text-[10px] uppercase font-semibold text-[color:var(--text-muted)] block">Integration Status</span>
                 {guildId ? (
                   <span className="text-sm font-bold text-emerald-400 flex items-center gap-1.5 mt-1">
                     <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                     Connected to Server
                   </span>
                 ) : (
-                  <span className="text-sm font-bold text-slate-400 flex items-center gap-1.5 mt-1">
-                    <span className="h-2 w-2 rounded-full bg-slate-500" />
+                  <span className="text-sm font-bold text-[color:var(--text-muted)] flex items-center gap-1.5 mt-1">
+                    <span className="h-2 w-2 rounded-full bg-[color:var(--text-muted)]" />
                     Not Connected
                   </span>
                 )}
@@ -240,7 +240,7 @@ function SettingsContent() {
                 <button
                   type="button"
                   onClick={handleDisconnect}
-                  className="px-3 py-1.5 rounded-lg border border-slate-800 text-xs font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-900 transition"
+                  className="px-3 py-1.5 rounded-lg border border-[color:var(--card-border)] text-xs font-semibold text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] hover:bg-[color:var(--hover-bg)] transition"
                 >
                   Disconnect Server
                 </button>
@@ -248,21 +248,21 @@ function SettingsContent() {
             </div>
 
             {guildId ? (
-              <div className="pt-2 border-t border-slate-900/60 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="pt-2 border-t border-[color:var(--divider)] grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <span className="text-[10px] uppercase font-semibold text-slate-500 block">Server Name</span>
-                  <span className="text-sm font-semibold text-slate-200 mt-1 block">
+                  <span className="text-[10px] uppercase font-semibold text-[color:var(--text-muted)] block">Server Name</span>
+                  <span className="text-sm font-semibold text-[color:var(--text-primary)] mt-1 block">
                     {fetchingChannels ? 'Retrieving details...' : guildName}
                   </span>
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-semibold text-slate-500 block">Guild ID</span>
-                  <span className="text-sm font-mono text-slate-400 mt-1 block">{guildId}</span>
+                  <span className="text-[10px] uppercase font-semibold text-[color:var(--text-muted)] block">Guild ID</span>
+                  <span className="text-sm font-mono text-[color:var(--text-secondary)] mt-1 block">{guildId}</span>
                 </div>
               </div>
             ) : (
               <div className="pt-2 flex flex-col items-center justify-center py-6 text-center">
-                <p className="text-xs text-slate-400 max-w-sm mb-4">
+                <p className="text-xs text-[color:var(--text-secondary)] max-w-sm mb-4">
                   Authorize the bot on your Discord Server to automatically read channels and telemetry.
                 </p>
                 <a
@@ -283,12 +283,12 @@ function SettingsContent() {
           {guildId && (
             <div className="space-y-6">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-[color:var(--text-secondary)] uppercase tracking-wider mb-2">
                   Target Discord Channel
                 </label>
                 <div className="relative">
                   {fetchingChannels ? (
-                    <div className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800/80 text-slate-400 text-sm flex items-center gap-2">
+                    <div className="w-full px-4 py-3 rounded-xl bg-[color:var(--field-bg)] border border-[color:var(--card-border)] text-[color:var(--text-muted)] text-sm flex items-center gap-2">
                       <svg className="animate-spin h-4 w-4 text-violet-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -300,36 +300,36 @@ function SettingsContent() {
                       value={channelId}
                       onChange={(e) => setChannelId(e.target.value)}
                       required
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800/80 text-slate-100 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200 appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 rounded-xl bg-[color:var(--field-bg)] border border-[color:var(--card-border)] text-[color:var(--text-primary)] focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200 appearance-none cursor-pointer"
                     >
-                      <option value="" disabled>Select a Discord Text Channel...</option>
+                      <option value="" disabled className="bg-[color:var(--page-bg)]">Select a Discord Text Channel...</option>
                       {channels.map((chan) => (
-                        <option key={chan.id} value={chan.id}>
+                        <option key={chan.id} value={chan.id} className="bg-[color:var(--page-bg)] text-[color:var(--text-primary)]">
                           #{chan.name}
                         </option>
                       ))}
                       {channelId && !channels.some((c) => c.id === channelId) && (
-                        <option value={channelId}>
+                        <option value={channelId} className="bg-[color:var(--page-bg)] text-[color:var(--text-primary)]">
                           Configured Channel (ID: {channelId})
                         </option>
                       )}
                     </select>
                   )}
                   {!fetchingChannels && (
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[color:var(--text-muted)]">
                       <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                       </svg>
                     </div>
                   )}
                 </div>
-                <span className="text-[10px] text-slate-500 mt-1 block">
+                <span className="text-[10px] text-[color:var(--text-muted)] mt-1 block">
                   Select the channel where the bot logs commands and incidents.
                 </span>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-[color:var(--text-secondary)] uppercase tracking-wider mb-2">
                   Slack Webhook URL (Optional)
                 </label>
                 <input
@@ -337,17 +337,17 @@ function SettingsContent() {
                   value={slackWebhook}
                   onChange={(e) => setSlackWebhook(e.target.value)}
                   autoComplete="new-password"
-                  className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800/80 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200 font-mono text-sm"
+                  className="w-full px-4 py-3 rounded-xl bg-[color:var(--field-bg)] border border-[color:var(--card-border)] text-[color:var(--text-primary)] placeholder-[color:var(--text-muted)] focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200 font-mono text-sm"
                   placeholder={slackWebhook ? "••••••••••••••••••••••••" : "https://hooks.slack.com/services/..."}
                 />
-                <span className="text-[10px] text-slate-500 mt-1 block">
+                <span className="text-[10px] text-[color:var(--text-muted)] mt-1 block">
                   Slack Incoming Webhook URL. Saved securely, never exposed in client API responses.
                 </span>
               </div>
             </div>
           )}
 
-          <div className="flex justify-end pt-4 border-t border-slate-800/60">
+          <div className="flex justify-end pt-4 border-t border-[color:var(--divider)]">
             <button
               type="submit"
               disabled={saving || !guildId}

@@ -50,7 +50,7 @@ export function MetricCard({ metric, index }: { metric: Metric; index: number })
             <span className={cn('metric-icon', iconColorClass)}>
               <Icon className="size-4" />
             </span>
-            <span className="text-xs font-semibold text-slate-400">{metric.label}</span>
+            <span className="text-xs font-semibold text-[color:var(--text-tertiary)]">{metric.label}</span>
           </div>
           <span className={cn('inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-semibold', trendStyles[metric.trend])}>
             <Trend className="size-3" />
@@ -59,7 +59,7 @@ export function MetricCard({ metric, index }: { metric: Metric; index: number })
         </div>
         <div className="mt-4 flex items-end justify-between">
           <div>
-            <p className="text-3xl font-bold tracking-tight text-white tabular-nums">{metric.value}</p>
+            <p className="text-3xl font-bold tracking-tight bg-gradient-to-r from-[color:var(--text-primary)] to-[color:var(--accent-1)] bg-clip-text text-transparent tabular-nums">{metric.value}</p>
           </div>
           <div className="h-10 w-24">
             <Sparkline data={metric.spark} color={metric.accent} />

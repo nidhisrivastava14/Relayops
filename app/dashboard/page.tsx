@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { createBrowserClientInstance } from '@/lib/supabase/browser';
 import { MirrorStatus } from '@/lib/types';
@@ -133,6 +133,38 @@ export default function DashboardOverviewPage() {
     };
   }, [servers, supabase]);
 
+  // Calculate dynamic metrics
+  const metricsData = useMemo(() => fetchDashboardMetrics(logs), [logs]);
+  const priorityDist = useMemo(() => getPriorityDistribution(logs), [logs]);
+  const highPriorityOpen = useMemo(() => logs.filter(
+    (log) => log.command_name === 'report' && log.incident_status === 'open' && log.priority === 'High'
+  ).length, [logs]);
+
+  // Map raw logs to ActivityFeed structure
+  const mappedCommands = useMemo(() => logs.slice(0, 7).map((log) => {
+    let status: 'DELIVERED' | 'RETRYING' | 'ABANDONED' | 'SKIPPED' = 'SKIPPED';
+    if (log.mirror_status === 'delivered') status = 'DELIVERED';
+    else if (log.mirror_status === 'failed' || log.mirror_status === 'pending') status = 'RETRYING';
+    else if (log.mirror_status === 'abandoned') status = 'ABANDONED';
+
+    let priority: 'HIGH' | 'MEDIUM' | 'LOW' = 'LOW';
+    if (log.priority === 'High') priority = 'HIGH';
+    else if (log.priority === 'Medium') priority = 'MEDIUM';
+
+    const timeStr = new Date(log.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+    return {
+      id: log.id,
+      command: `/${log.command_name}`,
+      description: log.input_text || '',
+      time: timeStr,
+      user: `@user_${log.user_id.slice(-4)}`,
+      priority,
+      category: log.category ? log.category.toUpperCase() : 'OTHER',
+      status,
+    };
+  }), [logs]);
+
   if (loading) {
     return (
       <div className="p-8 flex flex-col items-center justify-center min-h-[50vh] text-slate-400">
@@ -172,13 +204,6 @@ export default function DashboardOverviewPage() {
       </div>
     );
   }
-
-  // Calculate dynamic metrics
-  const metricsData = fetchDashboardMetrics(logs);
-  const priorityDist = getPriorityDistribution(logs);
-  const highPriorityOpen = logs.filter(
-    (log) => log.command_name === 'report' && log.incident_status === 'open' && log.priority === 'High'
-  ).length;
 
   const metricCards = [
     {
@@ -223,35 +248,10 @@ export default function DashboardOverviewPage() {
     },
   ];
 
-  // Map raw logs to ActivityFeed structure
-  const mappedCommands = logs.slice(0, 7).map((log) => {
-    let status: 'DELIVERED' | 'RETRYING' | 'ABANDONED' | 'SKIPPED' = 'SKIPPED';
-    if (log.mirror_status === 'delivered') status = 'DELIVERED';
-    else if (log.mirror_status === 'failed' || log.mirror_status === 'pending') status = 'RETRYING';
-    else if (log.mirror_status === 'abandoned') status = 'ABANDONED';
-
-    let priority: 'HIGH' | 'MEDIUM' | 'LOW' = 'LOW';
-    if (log.priority === 'High') priority = 'HIGH';
-    else if (log.priority === 'Medium') priority = 'MEDIUM';
-
-    const timeStr = new Date(log.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-    return {
-      id: log.id,
-      command: `/${log.command_name}`,
-      description: log.input_text || '',
-      time: timeStr,
-      user: `@user_${log.user_id.slice(-4)}`,
-      priority,
-      category: log.category ? log.category.toUpperCase() : 'OTHER',
-      status,
-    };
-  });
-
   const activeServer = servers[0];
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-8">
+    <div className="main max-w-7xl mx-auto space-y-8">
       {/* Hero Section */}
       <Hero
         userEmail={userEmail}

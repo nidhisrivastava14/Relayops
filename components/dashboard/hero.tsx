@@ -52,7 +52,7 @@ export function Hero({ userEmail, commandsToday, successRate, openIncidents }: H
         <div className="orb">
           <div className="orb-inner">
             <span className="size-2 rounded-full bg-[#3B82F6] shadow-[0_0_12px_#3B82F6]" />
-            <span className="text-[11px] font-extrabold tracking-widest text-white">LIVE</span>
+            <span className="text-[11px] font-extrabold tracking-widest text-[color:var(--text-primary)]">LIVE</span>
           </div>
         </div>
       </div>

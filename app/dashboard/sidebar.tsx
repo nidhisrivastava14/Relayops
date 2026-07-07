@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createBrowserClientInstance } from '@/lib/supabase/browser';
 
+import { ThemeToggle } from '@/components/ui/theme-toggle';
+
 interface SidebarProps {
   userEmail: string;
 }
@@ -72,7 +74,7 @@ export default function DashboardSidebar({ userEmail }: SidebarProps) {
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
           </svg>
         </div>
-        <div className="brand-name" style={{ fontSize: '22px', fontWeight: 800, letterSpacing: '-0.02em', color: '#ffffff' }}>
+        <div className="brand-name" style={{ fontSize: '22px', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
           RelayOps
         </div>
       </div>
@@ -96,8 +98,13 @@ export default function DashboardSidebar({ userEmail }: SidebarProps) {
       </nav>
 
       <div className="sidebar-footer">
-        <div className="label">Logged in as</div>
-        <div className="email">{userEmail}</div>
+        <div className="flex items-center justify-between mb-4">
+          <div className="min-w-0">
+            <div className="label" style={{ margin: 0 }}>Logged in as</div>
+            <div className="email" style={{ margin: 0, fontSize: '13px', maxWidth: '140px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{userEmail}</div>
+          </div>
+          <ThemeToggle />
+        </div>
         <button onClick={handleSignOut} className="signout-btn">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />

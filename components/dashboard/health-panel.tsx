@@ -27,10 +27,10 @@ export function HealthPanel({ hasSlackWebhook }: HealthPanelProps) {
   return (
     <div className="panel-card">
       <div className="flex items-center justify-between gap-2">
-        <h2 className="text-sm font-semibold tracking-tight text-foreground">
+        <h2 className="text-sm font-semibold tracking-tight text-[color:var(--text-primary)]">
           System Health
         </h2>
-        <span className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+        <span className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-[color:var(--text-muted)]">
           <RefreshCw className="size-3" />
           Checked just now
         </span>
@@ -46,12 +46,12 @@ export function HealthPanel({ hasSlackWebhook }: HealthPanelProps) {
               <span
                 className={cn('size-2 rounded-full', dotColor[svc.status])}
               />
-              <span className="text-sm font-medium text-foreground">
+              <span className="text-sm font-medium text-[color:var(--text-secondary)]">
                 {svc.name}
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs tabular-nums text-muted-foreground">
+              <span className="font-mono text-xs tabular-nums text-[color:var(--text-tertiary)]">
                 {svc.latency}
               </span>
               <span className={cn('status-badge', svc.status === 'HEALTHY' ? 'healthy' : 'waiting')}>

@@ -42,7 +42,7 @@ export function ActivityFeed({ commands }: { commands: Command[] }) {
     <div className="panel-card overflow-hidden">
       <div className="flex items-center justify-between gap-3 border-b border-border pb-5">
         <div className="flex items-center gap-2.5">
-          <h2 className="text-base font-semibold tracking-tight text-foreground">
+          <h2 className="text-base font-semibold tracking-tight text-[color:var(--text-primary)]">
             Live Command Timeline
           </h2>
           <Badge variant="primary" className="normal-case tracking-normal">
@@ -60,7 +60,7 @@ export function ActivityFeed({ commands }: { commands: Command[] }) {
 
       <div className="divide-y divide-border">
         {commands.length === 0 ? (
-          <div className="p-8 text-center text-sm text-muted-foreground">
+          <div className="p-8 text-center text-sm text-[color:var(--text-muted)]">
             No command events have been logged yet.
           </div>
         ) : (
@@ -87,16 +87,16 @@ export function ActivityFeed({ commands }: { commands: Command[] }) {
                   <code className="rounded-md bg-primary/10 px-1.5 py-0.5 font-mono text-[13px] font-semibold text-primary">
                     {cmd.command}
                   </code>
-                  <span className="truncate text-sm font-medium text-foreground">
-                    {cmd.description || <span className="italic text-muted-foreground">No description payload</span>}
+                  <span className="truncate text-sm font-medium text-[color:var(--text-primary)]">
+                    {cmd.description || <span className="italic text-[color:var(--text-muted)]">No description payload</span>}
                   </span>
                 </div>
-                <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-muted-foreground">
+                <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[color:var(--text-tertiary)]">
                   <span className="tabular-nums">{cmd.time}</span>
-                  <span className="text-muted-foreground/40">•</span>
+                  <span className="text-[color:var(--text-muted)] opacity-40">•</span>
                   <span>
                     from{' '}
-                    <span className="font-medium text-foreground/80">
+                    <span className="font-medium text-[color:var(--text-secondary)]">
                       {cmd.user}
                     </span>
                   </span>

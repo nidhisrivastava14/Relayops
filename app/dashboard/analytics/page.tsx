@@ -50,7 +50,7 @@ export default function AnalyticsPage() {
   const [servers, setServers] = useState<ServerRow[]>([]);
   const [logs, setLogs] = useState<CommandLog[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isDark, setIsDark] = useState(true);
+
 
   const fetchInitialData = useCallback(async () => {
     setLoading(true);
@@ -96,11 +96,7 @@ export default function AnalyticsPage() {
     fetchInitialData();
   }, [fetchInitialData]);
 
-  const toggleTheme = () => {
-    const nextDark = !isDark;
-    setIsDark(nextDark);
-    document.body.setAttribute('data-theme', nextDark ? 'dark' : 'light');
-  };
+
 
   // Calculate dynamic metrics
   const metrics = useMemo(() => fetchDashboardMetrics(logs), [logs]);
@@ -148,18 +144,7 @@ export default function AnalyticsPage() {
           <div className="page-subtitle">Analyze command usage, routing efficiency, and AI accuracy.</div>
         </div>
         <div className="header-actions">
-          <div className="theme-toggle" onClick={toggleTheme} title="Toggle theme">
-            {isDark ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="4"/>
-                <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
-              </svg>
-            ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
-              </svg>
-            )}
-          </div>
+
           <div className="btn btn-ghost">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
             Last 7 days
